@@ -43,7 +43,7 @@ pipeline {
         }
         stage("Docker build") {
             steps {
-                sh "docker build -t ahmedassimi/laravelApp ."
+                sh "docker build -t ahmedassimi/laravelapp ."
             }
         }
         stage("Docker push") {
@@ -53,12 +53,12 @@ pipeline {
             }
             steps {
                 sh "docker login --username ${DOCKER_USERNAME} --password ${DOCKER_PASSWORD}"
-                sh "docker push ahmedassimi/laravelApp"
+                sh "docker push ahmedassimi/laravelapp"
             }
         }
         stage("Deploy to staging") {
             steps {
-                sh "docker run -d --rm -p 8081:80 --name laravelApp ahmedassimi/laravelApp"
+                sh "docker run -d --rm -p 8081:80 --name laravelapp ahmedassimi/laravelapp"
             }
         }
         stage("Acceptance test curl") {
@@ -73,7 +73,7 @@ pipeline {
             }
             post {
                 always {
-                    sh "docker stop laravelApp"
+                    sh "docker stop laravelapp"
                 }
             }
         }
